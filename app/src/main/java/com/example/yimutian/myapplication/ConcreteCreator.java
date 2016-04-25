@@ -7,7 +7,7 @@ package com.example.yimutian.myapplication;
 public class ConcreteCreator extends Creator {
 
     @Override
-    public <T extends FactoryCreator> T creatorThridPay(Class<T> c) {
+    public <T extends ThirdPayment> T creatorThridPay(Class<T> c) {
         FactoryCreator factoryCreator = null;
         try{
             factoryCreator = (FactoryCreator)Class.forName(c.getName()).newInstance();

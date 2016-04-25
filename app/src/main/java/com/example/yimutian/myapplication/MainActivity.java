@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         //工厂方法模式
         Creator creator = new ConcreteCreator();
         thirdPayment = creator.creatorThridPay(LaKaLa.class);
-        
+
 
 
         thirdPayment.bankCardPay("", "");

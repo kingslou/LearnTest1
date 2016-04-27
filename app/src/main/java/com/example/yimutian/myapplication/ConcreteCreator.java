@@ -8,9 +8,9 @@ public class ConcreteCreator extends Creator {
 
     @Override
     public <T extends ThirdPayment> T creatorThridPay(Class<T> c) {
-        FactoryCreator factoryCreator = null;
+        ThirdPayment factoryCreator = null;
         try{
-            factoryCreator = (FactoryCreator)Class.forName(c.getName()).newInstance();
+            factoryCreator = (ThirdPayment)Class.forName(c.getName()).newInstance();
         }catch (Exception e){
             e.printStackTrace();
         }

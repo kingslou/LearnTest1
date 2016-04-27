@@ -11,9 +11,18 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.List;
+
+import bean.Infoclass;
+import network.ApiService;
+import network.ServiceGenerator;
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,20 +46,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //如果是银联设备
-        thirdPayment = (new YinLianFactory()).createThridPay();
-        //如果是通联设备
-        thirdPayment = (new TongLianFactory()).createThridPay();
-        //如果是拉卡拉
-        thirdPayment = (new LaKaLaFactory()).createThridPay();
+//        //如果是银联设备
+//        thirdPayment = (new YinLianFactory()).createThridPay();
+//        //如果是通联设备
+//        thirdPayment = (new TongLianFactory()).createThridPay();
+//        //如果是拉卡拉
+//        thirdPayment = (new LaKaLaFactory()).createThridPay();
+//
+//        //工厂方法模式
+//        Creator creator = new ConcreteCreator();
+//        thirdPayment = creator.creatorThridPay(LaKaLa.class);
+//
+//
+//
+//        thirdPayment.bankCardPay("", "");
 
-        //工厂方法模式
-        Creator creator = new ConcreteCreator();
-        thirdPayment = creator.creatorThridPay(LaKaLa.class);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ApiService apiService = ServiceGenerator.createService(ApiService.class);
 
+                Call<List<Infoclass>> infoclassCall = apiService.getInfoList();
 
+                try{
+                    Log.e("daYIN",infoclassCall.execute().body()+"");
+                    List<Infoclass> infoclassList = infoclassCall.execute().body();
+                    for(Infoclass infoclass : infoclassList){
+                        Log.e("打印",infoclass.getName());
+                    }
 
-        thirdPayment.bankCardPay("", "");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
     }
 

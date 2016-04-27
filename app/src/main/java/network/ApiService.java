@@ -2,7 +2,9 @@ package network;
 
 import java.util.List;
 
+import bean.BaseFeed;
 import bean.Infoclass;
+import bean.MyTest;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -12,7 +14,7 @@ import retrofit2.http.GET;
 public interface ApiService {
 
     @GET("api/info/classify")
-    Call<List<Infoclass>> getInfoList();
+    Call <BaseFeed> getInfoList();
 
 
 

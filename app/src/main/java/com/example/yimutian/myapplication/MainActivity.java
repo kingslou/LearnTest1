@@ -18,11 +18,15 @@ import android.view.MenuItem;
 
 import java.util.List;
 
+import bean.BaseFeed;
 import bean.Infoclass;
+import bean.MyTest;
 import network.ApiService;
 import network.ServiceGenerator;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,15 +70,18 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 ApiService apiService = ServiceGenerator.createService(ApiService.class);
 
-                Call<List<Infoclass>> infoclassCall = apiService.getInfoList();
-
+                Call<BaseFeed> infoclassCall = apiService.getInfoList();
                 try{
-                    Log.e("daYIN",infoclassCall.execute().body()+"");
-                    List<Infoclass> infoclassList = infoclassCall.execute().body();
-                    for(Infoclass infoclass : infoclassList){
-                        Log.e("打印",infoclass.getName());
-                    }
+                    infoclassCall.enqueue(new Callback<BaseFeed>() {
+                        @Override
+                        public void onResponse(Call<BaseFeed> call, Response<BaseFeed> response) {
+                            Log.e("成功",response.body().getTngou().toString());
+                        }
+                        @Override
+                        public void onFailure(Call<BaseFeed> call, Throwable t) {
 
+                        }
+                    });
                 }catch (Exception e){
                     e.printStackTrace();
                 }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by YiMuTian on 2016/4/27.
  */
-public class Infoclass extends BaseFeed implements Serializable {
+public class Infoclass implements Serializable {
     private int id;
     private String name;
     private String title;
